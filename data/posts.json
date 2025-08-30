@@ -1,0 +1,56 @@
+{
+  "topics": [
+    { "slug": "affliction-dealing", "title": "Affliction Dealing" },
+    { "slug": "worldly-other-stuff", "title": "Worldly/Other Stuff" },
+    { "slug": "reflections-individualism", "title": "Reflections — Individualism" },
+    { "slug": "children-home-birth", "title": "Children — Home Birth" },
+    { "slug": "polygyny-marriage", "title": "Polygyny — Marriage" }
+  ],
+  "posts": [
+    {
+      "id": "affliction-001",
+      "topic": "affliction-dealing",
+      "title": "Orienting the Heart in Hardship",
+      "date": "2024-01-01",
+      "summary": "Notes on patience, duʿāʾ, and practical steps that build resilience.",
+      "tags": ["resilience", "dalīl", "remedy"],
+      "url": "/topics/affliction-dealing.html#affliction-001"
+    },
+    {
+      "id": "worldly-001",
+      "topic": "worldly-other-stuff",
+      "title": "A Small Note Worth Keeping",
+      "date": "2024-02-05",
+      "summary": "A short curation from the everyday—filed for later reflection.",
+      "tags": ["miscellany", "notes"],
+      "url": "/topics/worldly-other-stuff.html#worldly-001"
+    },
+    {
+      "id": "reflect-001",
+      "topic": "reflections-individualism",
+      "title": "The Discipline of Being Answerable",
+      "date": "2024-03-12",
+      "summary": "On owning one’s choices and cultivating principled independence.",
+      "tags": ["individualism", "discipline", "ethics"],
+      "url": "/topics/reflections-individualism.html#reflect-001"
+    },
+    {
+      "id": "birth-001",
+      "topic": "children-home-birth",
+      "title": "Preparing the Home for Birth",
+      "date": "2024-04-20",
+      "summary": "Checklists and notes for a calm, home‑rooted experience.",
+      "tags": ["home-birth", "checklist", "nurture"],
+      "url": "/topics/children-home-birth.html#birth-001"
+    },
+    {
+      "id": "poly-001",
+      "topic": "polygyny-marriage",
+      "title": "Mapping Texts and Terms",
+      "date": "2024-05-10",
+      "summary": "A starting outline for meanings, evidences, and practical concerns.",
+      "tags": ["marriage", "texts", "framework"],
+      "url": "/topics/polygyny-marriage.html#poly-001"
+    }
+  ]
+}
