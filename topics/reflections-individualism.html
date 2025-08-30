@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Reflections — Individualism — The Olden Ways</title>
   <meta name="description" content="Self‑possession, responsibility, and principled living.">
-  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <header class="glass-header">
     <div class="container nav">
-      <a class="brand" href="/"><span class="logo-circle">⟁</span><span class="brand-text">The Olden Ways</span></a>
+      <a class="brand" href="../"><span class="logo-circle">⟁</span><span class="brand-text">The Olden Ways</span></a>
       <nav class="nav-links">
-        <a href="/#topics" class="nav-link">All Topics</a>
+        <a href="../#topics" class="nav-link">All Topics</a>
+        <button id="openSearch" class="icon-btn" aria-label="Search (Ctrl+K)" title="Search (Ctrl+K)">⌘K</button>
         <a href="mailto:ravencorp.net@gmail.com" class="btn btn-ghost">Contact</a>
         <button id="themeToggle" class="icon-btn" aria-label="Toggle color theme" title="Toggle theme">
           <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M6.76 4.84l-1.8-1.79L3.17 4.84l1.79 1.79 1.8-1.79zM1 13h3v-2H1v2zm10 10h2v-3h-2v3zm7.03-19.95l-1.79 1.8 1.8 1.79 1.79-1.79-1.8-1.8zM20 11v2h3v-2h-3zM6.76 19.16l-1.8 1.79 1.79 1.79 1.8-1.79-1.79-1.79zM17.24 19.16l1.79 1.79 1.8-1.79-1.8-1.79-1.79 1.79zM12 6a6 6 0 100 12 6 6 0 000-12z"/></svg>
@@ -25,15 +27,13 @@
   <main>
     <section class="topic-hero">
       <div class="container">
-        <div class="breadcrumbs"><a href="/">Home</a> › <a href="/#topics">Topics</a> › Reflections — Individualism</div>
-        <h1>Reflections — Individualism</h1>
+        <div class="breadcrumbs"><a href="../">Home</a> › <a href="../#topics">Topics</a> › Reflections — Individualism</div>
+        <h1 style="font-family:'Gloock',serif">Reflections — Individualism</h1>
         <p class="about">Self‑possession, responsibility, and principled living.</p>
+        <div class="tag-row" id="topicTags"></div>
+        <div class="meta" id="topicCount"></div>
         <div class="post-list">
-          <article class="post">
-            <h3>Sample: The Discipline of Being Answerable</h3>
-            <div class="meta">Reflection • placeholder</div>
-            <p>Replace with your reflection or excerpt. Add references as needed.</p>
-          </article>
+          <noscript><div class="post"><div class="meta">Enable JavaScript to see posts.</div></div></noscript>
         </div>
       </div>
     </section>
@@ -43,12 +43,12 @@
     <div class="container footer-grid">
       <div><div class="brand-subtle">The Olden Ways</div><small>© <span id="year"></span> Research by Umm Muḥammad al‑Banjābiyyah.</small></div>
       <div class="footer-actions">
-        <a class="btn btn-telegram sm" href="https://t.me/kkawaakib" target="_blank" rel="noopener"><img src="/assets/telegram.png" class="tg-icon" alt=""/> Telegram</a>
+        <a class="btn btn-telegram sm" href="https://t.me/kkawaakib" target="_blank" rel="noopener"><img src="../assets/telegram.png" class="tg-icon" alt=""/> Telegram</a>
         <a class="btn btn-ghost sm" href="mailto:ravencorp.net@gmail.com">Contact</a>
       </div>
     </div>
   </footer>
 
-  <script src="/script.js" defer></script>
+  <script src="../script.js" defer></script>
 </body>
 </html>
