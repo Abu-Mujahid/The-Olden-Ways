@@ -8,22 +8,25 @@
   <meta property="og:title" content="The Olden Ways" />
   <meta property="og:description" content="Individualism, Mind Nurture, Nomadic — a channel by Umm Muḥammad al-Banjābiyyah." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="/" />
+  <meta property="og:url" content="./" />
   <meta name="theme-color" content="#0f1117" />
-  <link rel="preload" href="/styles.css" as="style">
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="icon" href="/favicon.ico">
+  <!-- Brand + body fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet">
+  <link rel="preload" href="./styles.css" as="style">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" href="./favicon.ico">
 </head>
 <body>
   <header class="glass-header">
     <div class="container nav">
-      <a class="brand" href="/">
+      <a class="brand" href="./">
         <span class="logo-circle" aria-hidden="true">⟁</span>
         <span class="brand-text">The Olden Ways</span>
       </a>
       <nav class="nav-links" aria-label="Primary">
         <a href="#about" class="nav-link">About</a>
         <a href="#topics" class="nav-link">Topics</a>
+        <button id="openSearch" class="icon-btn" aria-label="Search (Ctrl+K)" title="Search (Ctrl+K)">⌘K</button>
         <a href="mailto:ravencorp.net@gmail.com" class="btn btn-ghost">Contact</a>
         <button id="themeToggle" class="icon-btn" aria-label="Toggle color theme" title="Toggle theme">
           <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
@@ -52,13 +55,13 @@
             <a class="btn btn-primary" href="#topics">Explore Topics</a>
             <a class="btn btn-ghost" href="mailto:ravencorp.net@gmail.com">Contact</a>
             <a class="btn btn-telegram" href="https://t.me/kkawaakib" target="_blank" rel="noopener">
-              <img src="/assets/telegram.png" alt="" class="tg-icon" />
+              <img src="assets/telegram.png" alt="" class="tg-icon" />
               Join on Telegram
             </a>
           </div>
           <div class="credit">
             Research and curation by <strong>Umm Muḥammad al‑Banjābiyyah</strong>.
-            Website built by <strong>Abu‑Mujahid</strong> to present her work; all research credit remains hers.
+            Website built to present her work; all research credit remains hers.
           </div>
         </div>
       </div>
@@ -84,27 +87,37 @@
       <div class="container">
         <h2>Topics</h2>
         <div class="topics-grid">
-          <a class="topic-card" href="/topics/affliction-dealing.html">
+          <a class="topic-card" href="topics/affliction-dealing.html">
             <h3>Affliction Dealing</h3>
             <p>On trials, remedies, resilience, and returning to grounded practices.</p>
           </a>
-          <a class="topic-card" href="/topics/worldly-other-stuff.html">
+          <a class="topic-card" href="topics/worldly-other-stuff.html">
             <h3>Worldly/Other Stuff</h3>
             <p>Curios, notes, and miscellany that inform the everyday.</p>
           </a>
-          <a class="topic-card" href="/topics/reflections-individualism.html">
+          <a class="topic-card" href="topics/reflections-individualism.html">
             <h3>Reflections — Individualism</h3>
             <p>Self‑possession, responsibility, and principled living.</p>
           </a>
-          <a class="topic-card" href="/topics/children-home-birth.html">
+          <a class="topic-card" href="topics/children-home-birth.html">
             <h3>Children — Home Birth</h3>
             <p>Nurture, natural birth, and home‑rooted care.</p>
           </a>
-          <a class="topic-card" href="/topics/polygyny-marriage.html">
+          <a class="topic-card" href="topics/polygyny-marriage.html">
             <h3>Polygyny — Marriage</h3>
             <p>Texts, contexts, and practical frameworks.</p>
           </a>
         </div>
+      </div>
+    </section>
+
+    <section id="browse-tags" class="section">
+      <div class="container">
+        <h2>Browse by Tag</h2>
+        <div id="tagCloud" class="tag-cloud" aria-live="polite">
+          <!-- Populated by script.js -->
+        </div>
+        <p class="muted small">Tip: Press / or Ctrl+K to search across all topics.</p>
       </div>
     </section>
   </main>
@@ -117,13 +130,13 @@
       </div>
       <div class="footer-actions">
         <a class="btn btn-telegram sm" href="https://t.me/kkawaakib" target="_blank" rel="noopener">
-          <img src="/assets/telegram.png" alt="" class="tg-icon" /> Telegram
+          <img src="assets/telegram.png" alt="" class="tg-icon" /> Telegram
         </a>
         <a class="btn btn-ghost sm" href="mailto:ravencorp.net@gmail.com">Contact</a>
       </div>
     </div>
   </footer>
 
-  <script src="/script.js" defer></script>
+  <script src="./script.js" defer></script>
 </body>
 </html>
