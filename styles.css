@@ -9,6 +9,11 @@
   --accent-2: #7ae2ff;
   --shadow: 0 10px 30px rgba(0,0,0,.35);
   --header-h: 64px;
+
+  /* Light rainbow colors */
+  --rb-purple: rgb(232 121 249);
+  --rb-blue: rgb(96 165 250);
+  --rb-green: rgb(94 234 212);
 }
 :root[data-theme="light"] {
   --bg: #f8fafc;
@@ -33,9 +38,155 @@ body {
   color: var(--text);
   line-height: 1.6;
   padding-top: env(safe-area-inset-top);
+  overflow-x: hidden;
 }
 
 .container { width: min(1100px, 92%); margin-inline: auto; }
+
+/* THEME BACKGROUND LAYERS */
+.theme-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Dark sky layer */
+.dark-sky {
+  position: absolute; inset: 0;
+  opacity: 1; transition: opacity .25s ease;
+}
+:root[data-theme="light"] .dark-sky { opacity: 0; visibility: hidden; }
+
+/* Dark theme gradient backdrop (separate from body so we can fade) */
+.dark-sky::before {
+  content: "";
+  position: absolute; inset: -10vmax; /* bleed */
+  background: linear-gradient(to bottom, #0b0b2b, #1b2735 70%, #090a0f);
+  z-index: -1;
+}
+
+/* Stars (dark) */
+.stars {
+  width: 1px; height: 1px; position: absolute; top: 0; left: 0;
+  background: white;
+  box-shadow: 2vw 5vh 2px white, 10vw 8vh 2px white, 15vw 15vh 1px white,
+    22vw 22vh 1px white, 28vw 12vh 2px white, 32vw 32vh 1px white,
+    38vw 18vh 2px white, 42vw 35vh 1px white, 48vw 25vh 2px white,
+    53vw 42vh 1px white, 58vw 15vh 2px white, 63vw 38vh 1px white,
+    68vw 28vh 2px white, 73vw 45vh 1px white, 78vw 32vh 2px white,
+    83vw 48vh 1px white, 88vw 20vh 2px white, 93vw 52vh 1px white,
+    98vw 35vh 2px white, 5vw 60vh 1px white, 12vw 65vh 2px white,
+    18vw 72vh 1px white, 25vw 78vh 2px white, 30vw 85vh 1px white,
+    35vw 68vh 2px white, 40vw 82vh 1px white, 45vw 92vh 2px white,
+    50vw 75vh 1px white, 55vw 88vh 2px white, 60vw 95vh 1px white,
+    65vw 72vh 2px white, 70vw 85vh 1px white, 75vw 78vh 2px white,
+    80vw 92vh 1px white, 85vw 82vh 2px white, 90vw 88vh 1px white,
+    95vw 75vh 2px white;
+  animation: twinkle 8s infinite linear;
+}
+.stars::after {
+  content: "";
+  position: absolute; width: 1px; height: 1px; top: 0; left: 0; background: white;
+  box-shadow: 8vw 12vh 2px white, 16vw 18vh 1px white, 24vw 25vh 2px white,
+    33vw 15vh 1px white, 41vw 28vh 2px white, 49vw 35vh 1px white,
+    57vw 22vh 2px white, 65vw 42vh 1px white, 73vw 28vh 2px white,
+    81vw 48vh 1px white, 89vw 32vh 2px white, 97vw 45vh 1px white,
+    3vw 68vh 2px white, 11vw 75vh 1px white, 19vw 82vh 2px white,
+    27vw 88vh 1px white, 35vw 72vh 2px white, 43vw 85vh 1px white,
+    51vw 92vh 1px white, 59vw 78vh 1px white;
+  animation: twinkle 6s infinite linear reverse;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: .8; }
+  50% { opacity: .4; }
+}
+
+/* Shooting stars */
+.shooting-star {
+  position: absolute; top: 20%; left: -120px;
+  width: 100px; height: 2px;
+  background: linear-gradient(90deg, white, transparent);
+  animation: shoot 3s infinite ease-in;
+  opacity: 0.9;
+}
+.dark-sky .shooting-star:nth-of-type(1) { top: 20%; animation-delay: 0s; }
+.dark-sky .shooting-star:nth-of-type(2) { top: 35%; animation-delay: 1s; }
+.dark-sky .shooting-star:nth-of-type(3) { top: 50%; animation-delay: 2s; }
+.dark-sky .shooting-star:nth-of-type(4) { top: 65%; animation-delay: 3.5s; }
+.dark-sky .shooting-star:nth-of-type(5) { top: 28%; animation-delay: 5s; }
+@keyframes shoot {
+  0% { transform: translateX(0) translateY(0) rotate(25deg); opacity: 1; }
+  100% { transform: translateX(120vw) translateY(50vh) rotate(25deg); opacity: 0; }
+}
+
+/* Light rainbow layer */
+.light-rainbows { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .25s ease; }
+:root[data-theme="light"] .light-rainbows { opacity: 1; visibility: visible; }
+:root[data-theme="light"] .dark-sky { opacity: 0; visibility: hidden; }
+
+/* Base beam */
+.rainbow {
+  height: 100vh; width: 0; top: 0; right: -25vw;
+  position: absolute;
+  transform: rotate(10deg);
+  transform-origin: top right;
+  animation-name: slide; animation-timing-function: linear; animation-iteration-count: infinite;
+  /* colors cycle via CSS vars per nth rules */
+  --c1: var(--rb-purple);
+  --c2: var(--rb-blue);
+  --c3: var(--rb-green);
+  box-shadow:
+    -130px 0 80px 40px rgba(255,255,255,0.9),
+    -50px 0 50px 25px var(--c1),
+    0 0 50px 25px var(--c2),
+    50px 0 50px 25px var(--c3),
+    130px 0 80px 40px rgba(255,255,255,0.9);
+}
+/* Color permutations in sequence of 6 */
+.light-rainbows .rainbow:nth-child(6n+1) { --c1: var(--rb-purple); --c2: var(--rb-blue); --c3: var(--rb-green); }
+.light-rainbows .rainbow:nth-child(6n+2) { --c1: var(--rb-purple); --c2: var(--rb-green); --c3: var(--rb-blue); }
+.light-rainbows .rainbow:nth-child(6n+3) { --c1: var(--rb-green); --c2: var(--rb-purple); --c3: var(--rb-blue); }
+.light-rainbows .rainbow:nth-child(6n+4) { --c1: var(--rb-green); --c2: var(--rb-blue); --c3: var(--rb-purple); }
+.light-rainbows .rainbow:nth-child(6n+5) { --c1: var(--rb-blue); --c2: var(--rb.green, var(--rb-green)); --c3: var(--rb-purple); }
+.light-rainbows .rainbow:nth-child(6n+6) { --c1: var(--rb-blue); --c2: var(--rb-purple); --c3: var(--rb-green); }
+
+/* Individual durations and offsets for 25 beams (dur = 45 - 0.9*i, delay = -1.8*i) */
+.light-rainbows .rainbow:nth-child(1)  { animation-duration: 44.1s; animation-delay: -1.8s; }
+.light-rainbows .rainbow:nth-child(2)  { animation-duration: 43.2s; animation-delay: -3.6s; }
+.light-rainbows .rainbow:nth-child(3)  { animation-duration: 42.3s; animation-delay: -5.4s; }
+.light-rainbows .rainbow:nth-child(4)  { animation-duration: 41.4s; animation-delay: -7.2s; }
+.light-rainbows .rainbow:nth-child(5)  { animation-duration: 40.5s; animation-delay: -9.0s; }
+.light-rainbows .rainbow:nth-child(6)  { animation-duration: 39.6s; animation-delay: -10.8s; }
+.light-rainbows .rainbow:nth-child(7)  { animation-duration: 38.7s; animation-delay: -12.6s; }
+.light-rainbows .rainbow:nth-child(8)  { animation-duration: 37.8s; animation-delay: -14.4s; }
+.light-rainbows .rainbow:nth-child(9)  { animation-duration: 36.9s; animation-delay: -16.2s; }
+.light-rainbows .rainbow:nth-child(10) { animation-duration: 36.0s; animation-delay: -18.0s; }
+.light-rainbows .rainbow:nth-child(11) { animation-duration: 35.1s; animation-delay: -19.8s; }
+.light-rainbows .rainbow:nth-child(12) { animation-duration: 34.2s; animation-delay: -21.6s; }
+.light-rainbows .rainbow:nth-child(13) { animation-duration: 33.3s; animation-delay: -23.4s; }
+.light-rainbows .rainbow:nth-child(14) { animation-duration: 32.4s; animation-delay: -25.2s; }
+.light-rainbows .rainbow:nth-child(15) { animation-duration: 31.5s; animation-delay: -27.0s; }
+.light-rainbows .rainbow:nth-child(16) { animation-duration: 30.6s; animation-delay: -28.8s; }
+.light-rainbows .rainbow:nth-child(17) { animation-duration: 29.7s; animation-delay: -30.6s; }
+.light-rainbows .rainbow:nth-child(18) { animation-duration: 28.8s; animation-delay: -32.4s; }
+.light-rainbows .rainbow:nth-child(19) { animation-duration: 27.9s; animation-delay: -34.2s; }
+.light-rainbows .rainbow:nth-child(20) { animation-duration: 27.0s; animation-delay: -36.0s; }
+.light-rainbows .rainbow:nth-child(21) { animation-duration: 26.1s; animation-delay: -37.8s; }
+.light-rainbows .rainbow:nth-child(22) { animation-duration: 25.2s; animation-delay: -39.6s; }
+.light-rainbows .rainbow:nth-child(23) { animation-duration: 24.3s; animation-delay: -41.4s; }
+.light-rainbows .rainbow:nth-child(24) { animation-duration: 23.4s; animation-delay: -43.2s; }
+.light-rainbows .rainbow:nth-child(25) { animation-duration: 22.5s; animation-delay: -45.0s; }
+
+@keyframes slide {
+  from { right: -25vw; }
+  to   { right: 125vw; }
+}
+
+/* Light helpers (glow pads) */
+.h { box-shadow: 0 0 50vh 40vh rgba(255,255,255,0.9); width: 100vw; height: 0; bottom: 0; left: 0; position: absolute; }
+.v { box-shadow: 0 0 35vw 25vw rgba(255,255,255,0.9); width: 0; height: 100vh; bottom: 0; left: 0; position: absolute; }
 
 /* Glass header */
 .glass-header {
@@ -48,20 +199,12 @@ body {
   display: grid; grid-template-columns: 1fr auto; align-items: center;
   padding: .5rem 0;
 }
-.brand {
-  display: inline-flex; align-items: center; gap: 0; color: var(--text); text-decoration: none; font-weight: 700;
-}
-.brand-text {
-  letter-spacing: .2px;
-  font-family: "Gloock", serif;
-  font-size: 1.1rem;
-}
+.brand { display: inline-flex; align-items: center; gap: 0; color: var(--text); text-decoration: none; font-weight: 700; }
+.brand-text { letter-spacing: .2px; font-family: "Gloock", serif; font-size: 1.1rem; }
 
 /* Nav links & buttons */
 .nav-links { display: flex; gap: .5rem; align-items: center; }
-.nav-link {
-  color: var(--muted); text-decoration: none; padding: .5rem .75rem; border-radius: 10px;
-}
+.nav-link { color: var(--muted); text-decoration: none; padding: .5rem .75rem; border-radius: 10px; }
 .nav-link:hover { color: var(--text); background: color-mix(in srgb, var(--bg-soft) 70%, transparent); }
 
 .icon-btn {
@@ -151,9 +294,7 @@ body {
 .topics-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;
 }
-@media (max-width: 480px) {
-  .topics-grid { grid-template-columns: 1fr; }
-}
+@media (max-width: 480px) { .topics-grid { grid-template-columns: 1fr; } }
 .topic-card {
   text-decoration: none; color: var(--text);
   background: color-mix(in srgb, var(--bg-soft) 60%, transparent);
@@ -169,11 +310,7 @@ body {
 .breadcrumbs { color: var(--muted); font-size: .95rem; }
 .breadcrumbs a { color: inherit; text-decoration: none; }
 .post-list { display: grid; gap: 1rem; margin-top: 1rem; }
-.post {
-  background: color-mix(in srgb, var(--bg-soft) 60%, transparent);
-  border: 1px solid var(--border); border-radius: 14px; padding: 1rem;
-  box-shadow: var(--shadow);
-}
+.post { background: color-mix(in srgb, var(--bg-soft) 60%, transparent); border: 1px solid var(--border); border-radius: 14px; padding: 1rem; box-shadow: var(--shadow); }
 .post h3 { margin-top: 0; margin-bottom: .25rem; }
 .post .meta { color: var(--muted); font-size: .9rem; }
 
@@ -192,10 +329,7 @@ body {
 /* Search overlay */
 .search-overlay { position: fixed; inset: 0; z-index: 80; display: none; background: color-mix(in srgb, var(--bg) 60%, transparent); backdrop-filter: blur(10px); }
 .search-overlay.open { display: grid; place-items: start center; padding-top: 10vh; }
-.search-panel {
-  width: min(820px, 92%); background: color-mix(in srgb, var(--bg-soft) 70%, transparent);
-  border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow);
-}
+.search-panel { width: min(820px, 92%); background: color-mix(in srgb, var(--bg-soft) 70%, transparent); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); }
 .search-head { display: flex; gap: .6rem; padding: .6rem; border-bottom: 1px solid var(--border); }
 .search-input { flex: 1; padding: .8rem 1rem; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 1rem; }
 .search-body { max-height: 60vh; overflow: auto; padding: .6rem; }
@@ -211,17 +345,7 @@ body {
   .search-input { font-size: 1.05rem; padding: .9rem 1rem; }
 }
 
-/* Footer */
-.site-footer { border-top: 1px solid var(--border); padding: 1.1rem 0; }
-.footer-grid { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-.brand-subtle { font-weight: 700; color: var(--text); }
-
-/* Utilities */
-.muted { color: var(--muted); }
-.small { font-size: .9rem; }
-.hidden { display: none !important; }
-
-/* Reduced motion */
+/* Reduced motion: disable heavy animations */
 @media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; }
+  * { transition: none !important; animation: none !important; }
 }
