@@ -2,39 +2,69 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>The Olden Ways — Individualism, Mind Nurture, Nomadic</title>
   <meta name="description" content="The Olden Ways — a curated channel by Umm Muḥammad al-Banjābiyyah exploring individualism, mind nurture, nomadic living, womanhood in Islam, naturopathy, and tradition-rooted paths.">
+
+  <!-- Canonical (update if you use a custom domain) -->
+  <link rel="canonical" href="https://abu-mujahid.github.io/The-Olden-Ways/" />
+
+  <!-- Open Graph / Twitter -->
   <meta property="og:title" content="The Olden Ways" />
-  <meta property="og:description" content="Individualism, Mind Nurture, Nomadic — a channel by Umm Muḥammad al-Banjābiyyah." />
+  <meta property="og:description" content="Individualism, Mind Nurture, Nomadic — curated studies and notes by Umm Muḥammad al‑Banjābiyyah." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="./" />
+  <meta property="og:url" content="https://abu-mujahid.github.io/The-Olden-Ways/" />
+  <meta property="og:image" content="https://abu-mujahid.github.io/The-Olden-Ways/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Olden Ways" />
+  <meta name="twitter:description" content="Individualism, Mind Nurture, Nomadic — curated studies and notes by Umm Muḥammad al‑Banjābiyyah." />
+  <meta name="twitter:image" content="https://abu-mujahid.github.io/The-Olden-Ways/assets/og.png" />
+
   <meta name="theme-color" content="#0f1117" />
-  <!-- Brand + body fonts -->
+
+  <!-- Fonts and CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet">
   <link rel="preload" href="./styles.css" as="style">
   <link rel="stylesheet" href="./styles.css">
   <link rel="icon" href="./favicon.ico">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "The Olden Ways",
+    "url": "https://abu-mujahid.github.io/The-Olden-Ways/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://abu-mujahid.github.io/The-Olden-Ways/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 </head>
 <body>
   <header class="glass-header">
     <div class="container nav">
-      <a class="brand" href="./">
-        <span class="logo-circle" aria-hidden="true">⟁</span>
-        <span class="brand-text">The Olden Ways</span>
-      </a>
-      <nav class="nav-links" aria-label="Primary">
+      <a class="brand" href="./"><span class="brand-text">The Olden Ways</span></a>
+
+      <!-- Mobile menu toggle -->
+      <button id="menuToggle" class="icon-btn hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+        </svg>
+      </button>
+
+      <nav id="navMenu" class="nav-links" aria-label="Primary">
         <a href="#about" class="nav-link">About</a>
         <a href="#topics" class="nav-link">Topics</a>
         <button id="openSearch" class="icon-btn" aria-label="Search (Ctrl+K)" title="Search (Ctrl+K)">⌘K</button>
         <a href="mailto:ravencorp.net@gmail.com" class="btn btn-ghost">Contact</a>
         <button id="themeToggle" class="icon-btn" aria-label="Toggle color theme" title="Toggle theme">
-          <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-            <path fill="currentColor" d="M6.76 4.84l-1.8-1.79L3.17 4.84l1.79 1.79 1.8-1.79zM1 13h3v-2H1v2zm10 10h2v-3h-2v3zm7.03-19.95l-1.79 1.8 1.8 1.79 1.79-1.79-1.8-1.8zM20 11v2h3v-2h-3zM6.76 19.16l-1.8 1.79 1.79 1.79 1.8-1.79-1.79-1.79zM17.24 19.16l1.79 1.79 1.8-1.79-1.8-1.79-1.79 1.79zM12 6a6 6 0 100 12 6 6 0 000-12z"/>
-          </svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-            <path fill="currentColor" d="M21.75 14.5A9.75 9.75 0 1110.5 2.25a8.25 8.25 0 0011.25 12.25z"/>
-          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M6.76 4.84l-1.8-1.79L3.17 4.84l1.79 1.79 1.8-1.79zM1 13h3v-2H1v2zm10 10h2v-3h-2v3zm7.03-19.95l-1.79 1.8 1.8 1.79 1.79-1.79-1.8-1.8zM20 11v2h3v-2h-3zM6.76 19.16l-1.8 1.79 1.79 1.79 1.8-1.79-1.79-1.79zM17.24 19.16l1.79 1.79 1.8-1.79-1.8-1.79-1.79 1.79zM12 6a6 6 0 100 12 6 6 0 000-12z"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M21.75 14.5A9.75 9.75 0 1110.5 2.25a8.25 8.25 0 0011.25 12.25z"/></svg>
         </button>
       </nav>
     </div>
@@ -54,9 +84,9 @@
           <div class="cta-row">
             <a class="btn btn-primary" href="#topics">Explore Topics</a>
             <a class="btn btn-ghost" href="mailto:ravencorp.net@gmail.com">Contact</a>
-            <a class="btn btn-telegram" href="https://t.me/kkawaakib" target="_blank" rel="noopener">
+            <!-- Icon-only Telegram button -->
+            <a class="btn btn-telegram btn-icon" href="https://t.me/kkawaakib" target="_blank" rel="noopener" aria-label="Join on Telegram" title="Join on Telegram">
               <img src="assets/telegram.png" alt="" class="tg-icon" />
-              Join on Telegram
             </a>
           </div>
           <div class="credit">
@@ -114,9 +144,7 @@
     <section id="browse-tags" class="section">
       <div class="container">
         <h2>Browse by Tag</h2>
-        <div id="tagCloud" class="tag-cloud" aria-live="polite">
-          <!-- Populated by script.js -->
-        </div>
+        <div id="tagCloud" class="tag-cloud" aria-live="polite"></div>
         <p class="muted small">Tip: Press / or Ctrl+K to search across all topics.</p>
       </div>
     </section>
@@ -129,8 +157,9 @@
         <small>© <span id="year"></span> All research credited to Umm Muḥammad al‑Banjābiyyah.</small>
       </div>
       <div class="footer-actions">
-        <a class="btn btn-telegram sm" href="https://t.me/kkawaakib" target="_blank" rel="noopener">
-          <img src="assets/telegram.png" alt="" class="tg-icon" /> Telegram
+        <!-- Icon-only Telegram in footer -->
+        <a class="btn btn-telegram btn-icon sm" href="https://t.me/kkawaakib" target="_blank" rel="noopener" aria-label="Open Telegram channel" title="Open Telegram channel">
+          <img src="assets/telegram.png" alt="" class="tg-icon" />
         </a>
         <a class="btn btn-ghost sm" href="mailto:ravencorp.net@gmail.com">Contact</a>
       </div>
