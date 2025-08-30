@@ -2,17 +2,29 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Worldly/Other Stuff — The Olden Ways</title>
   <meta name="description" content="Curios, notes, and miscellany that inform the everyday.">
+
+  <link rel="canonical" href="https://abu-mujahid.github.io/The-Olden-Ways/topics/worldly-other-stuff.html" />
+  <meta property="og:title" content="Worldly/Other Stuff — The Olden Ways" />
+  <meta property="og:description" content="Curios, notes, and miscellany that inform the everyday." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://abu-mujahid.github.io/The-Olden-Ways/topics/worldly-other-stuff.html" />
+  <meta property="og:image" content="https://abu-mujahid.github.io/The-Olden-Ways/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <header class="glass-header">
     <div class="container nav">
-      <a class="brand" href="../"><span class="logo-circle">⟁</span><span class="brand-text">The Olden Ways</span></a>
-      <nav class="nav-links">
+      <a class="brand" href="../"><span class="brand-text">The Olden Ways</span></a>
+      <button id="menuToggle" class="icon-btn hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+      </button>
+      <nav id="navMenu" class="nav-links">
         <a href="../#topics" class="nav-link">All Topics</a>
         <button id="openSearch" class="icon-btn" aria-label="Search (Ctrl+K)" title="Search (Ctrl+K)">⌘K</button>
         <a href="mailto:ravencorp.net@gmail.com" class="btn btn-ghost">Contact</a>
@@ -43,7 +55,9 @@
     <div class="container footer-grid">
       <div><div class="brand-subtle">The Olden Ways</div><small>© <span id="year"></span> Research by Umm Muḥammad al‑Banjābiyyah.</small></div>
       <div class="footer-actions">
-        <a class="btn btn-telegram sm" href="https://t.me/kkawaakib" target="_blank" rel="noopener"><img src="../assets/telegram.png" class="tg-icon" alt=""/> Telegram</a>
+        <a class="btn btn-telegram btn-icon sm" href="https://t.me/kkawaakib" target="_blank" rel="noopener" aria-label="Open Telegram channel" title="Open Telegram channel">
+          <img src="../assets/telegram.png" class="tg-icon" alt=""/>
+        </a>
         <a class="btn btn-ghost sm" href="mailto:ravencorp.net@gmail.com">Contact</a>
       </div>
     </div>
