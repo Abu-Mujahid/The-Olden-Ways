@@ -6,12 +6,37 @@
   const initial = saved || (prefersDark ? 'dark' : 'dark'); // default to dark
   root.setAttribute('data-theme', initial);
 
+  // Theme toggle
   const btnTheme = document.getElementById('themeToggle');
   if (btnTheme) {
     btnTheme.addEventListener('click', () => {
       const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
       localStorage.setItem(key, next);
+    });
+  }
+
+  // Mobile menu
+  const menuBtn = document.getElementById('menuToggle');
+  const navMenu = document.getElementById('navMenu');
+  if (menuBtn && navMenu) {
+    menuBtn.addEventListener('click', () => {
+      const open = document.body.classList.toggle('menu-open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    // Close when clicking a link
+    navMenu.addEventListener('click', (e) => {
+      if (e.target.closest('a,button')) {
+        document.body.classList.remove('menu-open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.body.classList.remove('menu-open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      }
     });
   }
 
@@ -34,14 +59,14 @@
   const firstSegment = location.pathname.split('/').filter(Boolean)[0] || '';
   const basePath = firstSegment === 'The-Olden-Ways' ? '/The-Olden-Ways/' : '/';
   const isTopicPage = location.pathname.includes('/topics/');
-  const postsJsonPath = (isTopicPage ? basePath + 'data/posts.json' : basePath + 'data/posts.json');
+  const postsJsonPath = basePath + 'data/posts.json';
 
   // Lightweight store
   const Store = {
     ready: false,
     topics: [],
     posts: [],
-    tags: new Map(), // tag -> count
+    tags: new Map(),
     async init() {
       if (this.ready) return;
       try {
@@ -49,7 +74,6 @@
         const data = await res.json();
         this.topics = data.topics || [];
         this.posts = (data.posts || []).map(p => ({ ...p, q: (p.title + ' ' + (p.summary||'') + ' ' + (p.tags||[]).join(' ') + ' ' + (p.topic||'')).toLowerCase() }));
-        // Build tag counts
         this.tags = new Map();
         this.posts.forEach(p => (p.tags||[]).forEach(t => this.tags.set(t, (this.tags.get(t)||0)+1)));
         this.ready = true;
@@ -76,10 +100,7 @@
       scored.sort((a,b) => b.score - a.score || new Date(b.date) - new Date(a.date));
       return scored.slice(0, 30);
     },
-    byTopic(slug) {
-      return this.posts.filter(p => p.topic === slug)
-        .sort((a,b) => new Date(b.date) - new Date(a.date));
-    },
+    byTopic(slug) { return this.posts.filter(p => p.topic === slug).sort((a,b) => new Date(b.date) - new Date(a.date)); },
     tagsForTopic(slug) {
       const m = new Map();
       this.byTopic(slug).forEach(p => (p.tags||[]).forEach(t => m.set(t, (m.get(t)||0)+1)));
@@ -127,14 +148,11 @@
       const frag = document.createDocumentFragment();
       for (const p of items) {
         const a = document.createElement('a');
-        const link = (firstSegment === 'The-Olden-Ways' ? '/The-Olden-Ways' : '') + p.url;
-        a.href = link;
+        const linkPrefix = (firstSegment === 'The-Olden-Ways' ? '/The-Olden-Ways' : '');
+        a.href = linkPrefix + p.url;
         a.className = 'result';
         const topicObj = Store.topics.find(t => t.slug === p.topic);
-        a.innerHTML = `
-          <div><strong>${escapeHtml(p.title)}</strong></div>
-          <small>${topicObj ? topicObj.title : p.topic} • ${escapeHtml(p.summary || '')}</small>
-        `;
+        a.innerHTML = `<div><strong>${escapeHtml(p.title)}</strong></div><small>${topicObj ? topicObj.title : p.topic} • ${escapeHtml(p.summary || '')}</small>`;
         frag.appendChild(a);
       }
       results.appendChild(frag);
@@ -149,13 +167,11 @@
     const overlay = document.querySelector('.search-overlay');
     if (overlay) overlay.classList.remove('open');
   }
-
   function escapeHtml(s=''){ return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
   // Global search triggers
   const btnOpenSearch = document.getElementById('openSearch');
   if (btnOpenSearch) btnOpenSearch.addEventListener('click', async () => { await Store.init(); openSearch(''); });
-
   document.addEventListener('keydown', async (e) => {
     const mod = e.ctrlKey || e.metaKey;
     if ((mod && e.key.toLowerCase() === 'k') || (!mod && e.key === '/')) {
@@ -164,6 +180,15 @@
       openSearch('');
     }
   });
+
+  // If URL has ?q=, open search with that query (SEO SearchAction target)
+  (async function openSearchFromQuery(){
+    const q = new URLSearchParams(location.search).get('q');
+    if (q) {
+      await Store.init();
+      openSearch(q);
+    }
+  })();
 
   // Tag cloud on home
   (async function initTagCloud() {
@@ -186,7 +211,8 @@
 
   // Topic pages: render posts + tag filters
   (async function initTopicPages(){
-    if (!isTopicPage) return;
+    const isTopic = location.pathname.includes('/topics/');
+    if (!isTopic) return;
     await Store.init();
     const slug = location.pathname.split('/').pop().replace('.html','');
     const list = document.querySelector('.post-list');
@@ -231,9 +257,8 @@
         const art = document.createElement('article');
         art.className = 'post';
         art.id = p.id;
-        const topicPathPrefix = (firstSegment === 'The-Olden-Ways' ? '/The-Olden-Ways' : '');
-        // If p.url points to self, keep as internal anchor; otherwise use external
-        const link = p.url.startsWith('/topics/') ? `${topicPathPrefix}${p.url}` : p.url;
+        const linkPrefix = (firstSegment === 'The-Olden-Ways' ? '/The-Olden-Ways' : '');
+        const link = p.url.startsWith('/topics/') ? `${linkPrefix}${p.url}` : p.url;
         art.innerHTML = `
           <h3><a href="${link}">${escapeHtml(p.title)}</a></h3>
           <div class="meta">${new Date(p.date).toLocaleDateString()} • ${(p.tags||[]).map(t=>`<span class="chip" style="pointer-events:none">${escapeHtml(t)}</span>`).join(' ')}</div>
