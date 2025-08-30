@@ -1,5 +1,8 @@
 # The Olden Ways — Website
 
+Live site
+- https://abu-mujahid.github.io/The-Olden-Ways/
+
 A modern, responsive static site for the Telegram channel “The Olden Ways” with:
 - Topic-based navigation
 - Global search (Ctrl+K or `/`) across all topics and posts
