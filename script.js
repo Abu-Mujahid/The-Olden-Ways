@@ -207,6 +207,8 @@
       };
       tagCloud.appendChild(a);
     }
+    // reveal: tag cloud chips
+    revealAddAll('#tagCloud .chip', 'fade-up', 0, 40);
   })();
 
   // Topic pages: render posts + tag filters
@@ -218,6 +220,10 @@
     const list = document.querySelector('.post-list');
     const tagRow = document.getElementById('topicTags');
     const countEl = document.getElementById('topicCount');
+    const h1 = document.querySelector('.topic-hero h1');
+    const about = document.querySelector('.topic-hero .about');
+    if (h1) revealAdd(h1, 'fade-up', 0);
+    if (about) revealAdd(about, 'fade-up', 80);
     if (!list) return;
 
     const posts = Store.byTopic(slug);
@@ -226,7 +232,7 @@
     // Build tag filters
     if (tagRow) {
       const tags = Store.tagsForTopic(slug).slice(0, 24);
-      for (const [tag, count] of tags) {
+      tags.forEach(([tag, count], i) => {
         const b = document.createElement('button');
         b.className = 'chip';
         b.type = 'button';
@@ -242,7 +248,8 @@
           }
         };
         tagRow.appendChild(b);
-      }
+        revealAdd(b, 'fade-up', i * 40); // reveal each chip staggered
+      });
     }
 
     function renderPosts(arr) {
@@ -267,7 +274,45 @@
         frag.appendChild(art);
       }
       list.appendChild(frag);
+      // reveal posts after insert
+      revealAddAll('.post-list .post', 'fade-up', 0, 60);
     }
   })();
+
+  // === Scroll-reveal engine ===
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealObserver = !reduceMotion ? new IntersectionObserver((entries, obs) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    }
+  }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 }) : null;
+
+  function revealAdd(el, variant='fade-up', delayMs=0) {
+    if (!el) return;
+    if (reduceMotion) {
+      el.classList.add('is-visible');
+      return;
+    }
+    if (!el.hasAttribute('data-reveal')) el.setAttribute('data-reveal', variant);
+    if (delayMs) el.style.setProperty('--reveal-delay', `${delayMs}ms`);
+    revealObserver.observe(el);
+  }
+
+  function revealAddAll(selector, variant='fade-up', baseDelay=0, step=60) {
+    const nodes = document.querySelectorAll(selector);
+    let i = 0;
+    nodes.forEach((el) => {
+      revealAdd(el, variant, baseDelay + i * step);
+      i++;
+    });
+  }
+
+  // Initial reveals on homepage/common elements
+  revealAddAll('.hero .title, .hero .tagline, .hero .intro, .hero .cta-row', 'fade-up', 0, 80);
+  revealAddAll('.section h2', 'fade-up', 0, 60);
+  revealAddAll('.topics-grid .topic-card', 'fade-up', 100, 100);
 
 })();
